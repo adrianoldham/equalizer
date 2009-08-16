@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>index</title>
+    <script type="text/javascript" charset="utf-8" src="../lib/prototype.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../lib/scriptaculous.js?load=effects"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/equalizer.js"></script>
+
+    <style type="text/css" media="screen">
+        .equalize-all {
+            border: 1px solid black;
+            width: 100px;
+            height: 50px;
+            padding: 15px;
+            float: left;
+        }
+        
+        .equalize-width, .equalize-height {
+            border: 1px solid black;
+            padding: 15px;
+            float: left;
+        }
+        
+        .holder {
+            clear: both;
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="holder">
+        <h2>Testing equalization of width and height at the same time</h2>
+        <div class="equalize-all" style="height: 300px">
+            I'm originally sized: 100x300
+        </div>
+        <div class="equalize-all" style="width: 200px">
+            I'm originally sized: 200x50
+        </div>
+        <div class="equalize-all">
+            I'm originally sized: 100x50
+        </div>
+    </div>
+    <br style="clear: both"/>
+    <div class="holder">
+        <h2>Testing equalization of only width</h2>
+        <div class="equalize-width" style="width: 300px; height: 100px">
+            I'm originally sized: 300x100
+        </div>
+        <div class="equalize-width" style="width: 100px; height: 160px">
+            I'm originally sized: 100x160
+        </div>
+        <div class="equalize-width" style="width: 10px">
+            I'm originally sized: 10xauto
+        </div>
+    </div>
+    <br style="clear: both"/>
+    <div class="holder">
+        <h2>Testing equalization of only height</h2>
+        <div class="equalize-height" style="width: 300px; height: 100px">
+            I'm originally sized: 300x100
+        </div>
+        <div class="equalize-height" style="width: 100px; height: 160px">
+            I'm originally sized: 100x160
+        </div>
+        <div class="equalize-height" style="width: 80px">
+            I'm originally sized: 80xauto
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" charset="utf-8">
+    function runTest() {
+        var equalizerAll = new Equalizer(".equalize-all");
+        var equalizerWidth = new Equalizer(".equalize-width", { "equalizeHeight": false });
+        var equalizerHeight = new Equalizer(".equalize-height", { "equalizeWidth": false });
+        
+        // This is how you attach an event to the "Update" event
+        equalizerAll.attachCallbackToEvent(Equalizer.Events.Update, function() {
+            alert('Update has been called for equalizerAll');
+        });
+        
+        // This is how you update the equalizer
+        equalizerAll.update();
+        equalizerWidth.update();
+        equalizerHeight.update();
+    }
+
+    Event.observe(window, "load", runTest);
+</script>
+
+</html>
