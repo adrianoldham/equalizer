@@ -1,3 +1,6 @@
+// Used to detect IE6
+Prototype.Browser.IE6 = Prototype.Browser.IE && parseInt(navigator.userAgent.substring(navigator.userAgent.indexOf("MSIE")+5)) == 6;
+
 // New framework for dispatching in class events (should probably be in it's own project)
 var EventDispatcher = Class.create({
     initialize: function() {
@@ -56,8 +59,11 @@ var Equalizer = Class.create(EventDispatcher, {
             element.setStyle({ "width": actualCSSDimension.width + "px" });
         }
         
-        if (this.options.equalizeHeight) {
-            element.setStyle({ "height": actualCSSDimension.height + "px" });
+        if (this.options.equalizeHeight && Prototype.Browser.IE6) {
+           element.setStyle({ "height": actualCSSDimension.height + "px" });
+        }
+        else if (this.options.equalizeHeight) {
+           element.setStyle({ "minHeight": actualCSSDimension.height + "px" });
         }
     },
     
