@@ -37,11 +37,12 @@ var Equalizer = Class.create(EventDispatcher, {
         "equalizeHeight": true          // Set true to equalize height
     },
     
-    initialize: function($super, selector, options) {
-        $super();
-        
+    initialize: function(selector, options) {
         this.options = Object.extend(Object.extend({ }, this.options), options || { });        
         this.elements = $$(selector);
+        
+        // Since we can't use $super, we'll need to duplicate EventDispatcher.initialize here
+        this.tagsWithFuncs = {};
     },
     
     setDimension: function(element, dimension) {
